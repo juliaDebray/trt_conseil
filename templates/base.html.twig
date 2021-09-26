@@ -13,7 +13,16 @@
 </head>
 <body>
 <header class="py-3 bg-secondary text-light d-flex flex-row justify-content-center">
-    <h1>Mon application</h1>
+    <div class="row d-flex">
+        <div>LOGO</div>
+        <h1>Mon application</h1>
+        {% if app.user %}
+            <div class="mb-3">
+                {{ app.user.username }},
+                <a class="btn btn-info" href="{{ path('app_logout') }}">Déconnexion</a>
+            </div>
+        {% endif %}
+    </div>
 </header>
 
 {% block body %}

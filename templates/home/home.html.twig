@@ -9,8 +9,9 @@
         </div>
         {% if offers %}
             {% for offer in offers %}
-                <div class="row">
-                    {{ offer.name }}
+                <div class="row m-2 d-flex justify-content-between">
+                    {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
+                    <button class="btn btn-info" type="submit">Postuler</button>
                 </div>
             {% endfor %}
         {%  else %}
