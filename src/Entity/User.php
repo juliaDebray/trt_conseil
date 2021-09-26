@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company_name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company_address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Offers::class, mappedBy="author_id", orphanRemoval=true)
+     */
+    private $offers_published;
+
+    public function __construct()
+    {
+        $this->offers_published = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,5 +159,95 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->company_name;
+    }
+
+    public function setCompanyName(?string $company_name): self
+    {
+        $this->company_name = $company_name;
+
+        return $this;
+    }
+
+    public function getCompanyAddress(): ?string
+    {
+        return $this->company_address;
+    }
+
+    public function setCompanyAddress(?string $company_address): self
+    {
+        $this->company_address = $company_address;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offers[]
+     */
+    public function getOffersPublished(): Collection
+    {
+        return $this->offers_published;
+    }
+
+    public function addOffersPublished(Offers $offersPublished): self
+    {
+        if (!$this->offers_published->contains($offersPublished)) {
+            $this->offers_published[] = $offersPublished;
+            $offersPublished->setAuthorId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffersPublished(Offers $offersPublished): self
+    {
+        if ($this->offers_published->removeElement($offersPublished)) {
+            // set the owning side to null (unless already changed)
+            if ($offersPublished->getAuthorId() === $this) {
+                $offersPublished->setAuthorId(null);
+            }
+        }
+
+        return $this;
     }
 }
