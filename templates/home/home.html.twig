@@ -7,9 +7,16 @@
         <div class="row bg-info px-3 justify-content-center text-white-50">
             <h2>Liste des offres d'emplois</h2>
         </div>
-        {# {% for offer in offers %}
-            <div class="row">{{ offer.name }}
+        {% if offers %}
+            {% for offer in offers %}
+                <div class="row">
+                    {{ offer.name }}
+                </div>
+            {% endfor %}
+        {%  else %}
+            <div class="row">
+            aucune offre en cours
             </div>
-        {% endfor %} #}
+        {% endif %}
     </div>
 {% endblock %}
