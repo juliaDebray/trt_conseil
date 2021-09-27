@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_label(form.email) }}
+    {{ form_row(form.email, {'label':false }) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.password) }}
+    {{ form_row(form.password, {'label':false }) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.roles, 'Êtes-vous employeur ou candidat ?') }}
+    {{ form_row(form.roles, {'label':false }) }}
+</div>
+<button class="btn btn-primary">{{ button_label|default('Créer mon compte') }}</button>
+{{ form_end(form) }}
