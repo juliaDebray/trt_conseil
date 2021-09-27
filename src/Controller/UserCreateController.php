@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +55,7 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route ("/{id}", name="user_create_show",methods={"GET"}),
+     * @Route ("/{id}/chepo", name="user_create_show",methods={"GET"}),
      */
     public function show(User $user): Response
     {
@@ -64,11 +65,11 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit",name="user_create_edit",methods={"GET","POST"}),
+     * @Route("/{id}",name="user_create_edit",methods={"GET","POST"}),
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -84,7 +85,7 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route("/{id}",name="user_create_delete",methods={"POST"}),
+     * @Route("/{id}/delete",name="user_create_delete",methods={"POST"}),
      */
     public function delete(Request $request, User $user): Response
     {

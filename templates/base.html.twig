@@ -23,6 +23,8 @@
                     {{ app.user.username }},
                     <a class="btn btn-info" href="{{ path('app_logout') }}">Déconnexion</a>
                 </div>
+                {#  #}
+                <a class="btn btn-info" href="{{ path('user_create_edit', { id: app.user.id}) }}">Profil</a>
             {% endif %}
         {% endif %}
     </div>
