@@ -12,18 +12,22 @@
     {% endblock %}
 </head>
 <body>
+{% block header %}
 <header class="py-3 bg-secondary text-light d-flex flex-row justify-content-center">
     <div class="row d-flex">
         <div>LOGO</div>
         <h1>Mon application</h1>
-        {% if app.user %}
-            <div class="mb-3">
-                {{ app.user.username }},
-                <a class="btn btn-info" href="{{ path('app_logout') }}">Déconnexion</a>
-            </div>
+        {% if app.user%}
+            {% if app.user.status == 'validated'  %}
+                <div class="mb-3">
+                    {{ app.user.username }},
+                    <a class="btn btn-info" href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 </header>
+{% endblock %}
 
 {% block body %}
 {% endblock %}

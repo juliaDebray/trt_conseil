@@ -14,6 +14,12 @@ class HomeController extends AbstractController
      */
     public function index(OffersRepository $offersRepository): Response
     {
+        $user = $this->getUser();
+
+        if($user->getStatus() != 'validated') {
+            return $this->render('user_create/created.html.twig');
+        }
+
         $offers = $offersRepository->findAll();
         return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
     }

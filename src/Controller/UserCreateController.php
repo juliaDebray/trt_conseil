@@ -40,9 +40,9 @@ class UserCreateController extends AbstractController
             $passwordToHash = $user->getPassword();
             $user->setPassword($passwordHasher->hashPassword($user, $passwordToHash));
 
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             return $this->render('user_create/created.html.twig');
         }
