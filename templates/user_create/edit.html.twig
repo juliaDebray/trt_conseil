@@ -1,10 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Modifier mon profil{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+        <h1 class="text-center">Mon profil</h1>
+    <div class="container d-flex justify-content-center">
+    {{ form_start(form) }}
 
-    {{form_widget(form) }}
+{#    <div class="row">#}
+{#        <div class="m-3 form-group">#}
+{#            {{ form_label(form.email) }}#}
+{#            {{ form_row(form.email, {'label':false}) }}#}
+{#        </div>#}
+{#        <div class="m-3 form-group">#}
+{#            {{ form_label(form.password) }}#}
+{#            {{ form_row(form.password, {'label':false, 'value': '' }) }}#}
+{#        </div>#}
+{#    </div>#}
 
+    <div class="row">
+        <div class="m-3 form-group">
+            {{ form_label(form.firstname) }}
+            {{ form_row(form.firstname, {'label':false}) }}
+        </div>
+        <div class="m-3 form-group">
+            {{ form_label(form.lastname) }}
+            {{ form_row(form.lastname, {'label':false}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="m-3 form-group">
+            {{ form_label(form.company_name) }}
+            {{ form_row(form.company_name, {'label':false}) }}
+        </div>
+        <div class="m-3 form-group">
+            {{ form_label(form.company_address) }}
+            {{ form_row(form.company_address, {'label':false}) }}
+        </div>
+    </div>
+
+    <button class="btn btn-primary btn-block">{{ button_label|default('Mettre à jour mon profil') }}</button>
+
+    {{ form_end(form) }}
+
+    </div>
 {% endblock %}

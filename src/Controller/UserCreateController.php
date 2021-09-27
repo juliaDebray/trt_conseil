@@ -55,7 +55,7 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route ("/{id}/chepo", name="user_create_show",methods={"GET"}),
+     * @Route ("/{id}/toDefine", name="user_create_show",methods={"GET"}),
      */
     public function show(User $user): Response
     {
@@ -75,7 +75,7 @@ class UserCreateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_create_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home');
         }
 
         return $this->renderForm('user_create/edit.html.twig', [
