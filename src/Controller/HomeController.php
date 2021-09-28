@@ -6,6 +6,7 @@ use App\Repository\OffersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class HomeController extends AbstractController
 {
@@ -20,8 +21,14 @@ class HomeController extends AbstractController
             return $this->render('user_create/created.html.twig');
         }
 
+        $userRole = implode($user->getRoles());
+
+        if($this->isGranted('ROLE_CANDIDATE', $userRole)) {
         $offers = $offersRepository->findAll();
         return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
+        }
+
+        return $this->redirectToRoute('homeRecruiter');
     }
 
     /**
