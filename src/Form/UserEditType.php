@@ -17,8 +17,8 @@ class UserEditType extends AbstractType
         $builder
             ->add('firstname', TextType::class, ['label'=> 'Prénom', 'required' => false ])
             ->add('lastname', TextType::class, ['label'=> 'Nom de famille', 'required' => false ])
-            ->add('company_name', TextType::class, ['label'=> 'Nom de l\'entreprise', 'required' => false ])
-            ->add('company_address', TextType::class, ['label'=>'Adresse de l\'entreprise', 'required' => false ])
+//            ->add('company_name', TextType::class, ['label'=> 'Nom de l\'entreprise', 'required' => false ])
+//            ->add('company_address', TextType::class, ['label'=>'Adresse de l\'entreprise', 'required' => false ])
             ->add('curriculum_vitae', FileType::class, ['label'=>'Ajouter mon C.V.', 'required' => false, 'data_class' => null,
                 'constraints' => [
                     new File([

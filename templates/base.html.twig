@@ -27,7 +27,12 @@
                         <a class="btn btn-info btn-block" href="{{ path('app_logout') }}">Déconnexion</a>
                     </div>
                     <div class="m-1">
-                            <a class="btn btn-info btn-block" href="{{ path('user_create_edit', { id: app.user.id}) }}">Profil</a>
+                        {% if is_granted('ROLE_RECRUITER') %}
+                            <a class="btn btn-primary btn-block" href="{{ path('recruiter_edit', { id: app.user.id}) }}">Profil</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_CANDIDATE') %}
+                            <a class="btn btn-info btn-block" href="{{ path('candidate_edit', { id: app.user.id}) }}">Profil</a>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}

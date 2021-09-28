@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RecruiterType;
 use App\Form\UserType;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,7 +70,7 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route("/{id}",name="user_create_edit",methods={"GET","POST"}),
+     * @Route("/candidate/{id}",name="candidate_edit",methods={"GET","POST"}),
      */
     public function edit(Request $request, User $user, FileUploader $fileUploader): Response
     {
@@ -89,6 +91,26 @@ class UserCreateController extends AbstractController
         }
 
         return $this->renderForm('user_create/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/recruiter/{id}",name="recruiter_edit",methods={"GET","POST"}),
+     */
+    public function editRecruiter(Request $request, User $user): Response
+    {
+        $form = $this->createForm(RecruiterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->renderForm('user_create/editRecruiter.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

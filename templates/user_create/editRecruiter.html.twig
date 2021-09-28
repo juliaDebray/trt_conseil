@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Mon profil</h1>
+    <div class="container d-flex justify-content-center">
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="m-1 form-group">
+                {{ form_label(form.company_name) }}
+                {{ form_row(form.company_name, {'label':false}) }}
+            </div>
+            <div class="m-1 form-group">
+                {{ form_label(form.company_address) }}
+                {{ form_row(form.company_address, {'label':false}) }}
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-block">{{ button_label|default('Mettre à jour mon profil') }}</button>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
