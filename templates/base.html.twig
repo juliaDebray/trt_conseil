@@ -15,11 +15,15 @@
 {% block header %}
 <header class="py-2 bg-secondary text-light d-flex flex-row justify-content-center">
     <div class="row d-flex">
+        <div class="col-1">
         <div>LOGO</div>
+        </div>
+        <div class="col-5">
         <h1>Mon application</h1>
+        </div>
         {% if app.user%}
             {% if app.user.status == 'validated'  %}
-                <div class="col align-">
+                <div class="col-4">
                     <div class="m-1">
                         {{ app.user.username }}
                     </div>
@@ -34,6 +38,9 @@
                             <a class="btn btn-info btn-block" href="{{ path('candidate_edit', { id: app.user.id}) }}">Profil</a>
                         {% endif %}
                     </div>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-primary btn-block" href="{{ path('home') }}">Accueil</a>
                 </div>
             {% endif %}
         {% endif %}
