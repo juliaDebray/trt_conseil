@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,9 @@ class UserCreateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $user->setStatus('pending');
+
             $passwordToHash = $user->getPassword();
             $user->setPassword($passwordHasher->hashPassword($user, $passwordToHash));
 
@@ -67,12 +70,19 @@ class UserCreateController extends AbstractController
     /**
      * @Route("/{id}",name="user_create_edit",methods={"GET","POST"}),
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $curriculumFile = $form->get('curriculum_vitae')->getData();
+
+            if ($curriculumFile) {
+                $FileName = $fileUploader->upload($curriculumFile);
+                $user->setCurriculumVitae($FileName);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('home');

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
@@ -66,6 +67,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Offers::class, mappedBy="author_id", orphanRemoval=true)
      */
     private $offers_published;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $curriculum_vitae;
 
     public function __construct()
     {
@@ -247,6 +253,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $offersPublished->setAuthorId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurriculumVitae(): ?string
+    {
+        return $this->curriculum_vitae;
+    }
+
+    public function setCurriculumVitae(?string $curriculum_vitae): self
+    {
+        $this->curriculum_vitae = $curriculum_vitae;
 
         return $this;
     }
