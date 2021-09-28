@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offers_list{% endblock %}
+
+{% block body %}
+    <div class="container border">
+        <div class="row bg-primary px-3 justify-content-center text-white-50">
+            <h2>Vos offres d'emplois</h2>
+        </div>
+        {% if offers %}
+            {% for offer in offers %}
+                <div class="row m-2 d-flex justify-content-between">
+                    {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
+                    <button class="btn btn-primary" type="submit">Liste des candidats</button>
+                </div>
+            {% endfor %}
+        {%  else %}
+            <div class="row">
+                aucune offre en cours
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -23,4 +23,21 @@ class HomeController extends AbstractController
         $offers = $offersRepository->findAll();
         return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
     }
+
+    /**
+     * @Route("/recruiter/home", name="homeRecruiter"),
+     */
+    public function homeRecruiter(OffersRepository $offersRepository): Response
+    {
+        $user = $this->getUser();
+
+        if($user->getStatus() != 'validated') {
+            return $this->render('user_create/created.html.twig');
+        }
+
+        $userId = $user->getId();
+        $recruitersOffers = $offersRepository->getRecruitersOffers($userId);
+
+        return $this->render('home/recruiterHome.html.twig', [ 'offers' => $recruitersOffers ]);
+    }
 }

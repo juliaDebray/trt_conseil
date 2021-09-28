@@ -19,6 +19,19 @@ class OffersRepository extends ServiceEntityRepository
         parent::__construct($registry, Offers::class);
     }
 
+     /**
+      * @return Offers[] Returns an array of Offers objects depends on the recruiter's id
+      */
+    public function getRecruitersOffers(int $userId): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.author_id = :id')
+            ->setParameter('id', $userId)
+            ->orderBy('o.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Offers[] Returns an array of Offers objects
     //  */
