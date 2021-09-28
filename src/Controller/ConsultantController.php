@@ -33,9 +33,9 @@ class ConsultantController extends AbstractController
 
             $user->setPassword($passwordHasher->hashPassword($user, $passwordToHash));
 
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             return $this->render('consultant/consultant_created.html.twig');
         }

@@ -29,6 +29,11 @@ class HomeController extends AbstractController
             return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
         }
 
+        else if($this->isGranted('ROLE_CONSULTANT', $userRole))
+        {
+            return $this->redirectToRoute('homeConsultant');
+        }
+
         else if($this->isGranted('ROLE_ADMIN', $userRole))
         {
             return $this->redirectToRoute('homeAdmin');
@@ -49,6 +54,15 @@ class HomeController extends AbstractController
         $recruitersOffers = $offersRepository->getRecruitersOffers($userId);
 
         return $this->render('home/recruiterHome.html.twig', [ 'offers' => $recruitersOffers ]);
+    }
+
+    /**
+     * @IsGranted ("ROLE_CONSULTANT")
+     * @Route("/consultant/home", name="homeConsultant"),
+     */
+    public function homeConsultant(): Response
+    {
+        return $this->render('home/consultantHome.html.twig');
     }
 
     /**
