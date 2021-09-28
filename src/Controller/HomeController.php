@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\OffersRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,9 +61,28 @@ class HomeController extends AbstractController
      * @IsGranted ("ROLE_CONSULTANT")
      * @Route("/consultant/home", name="homeConsultant"),
      */
-    public function homeConsultant(): Response
+    public function homeConsultant(UserRepository $userRepository, OffersRepository $offersRepository): Response
     {
-        return $this->render('home/consultantHome.html.twig');
+        $users = $userRepository->findAll();
+        $usersToReturn = [];
+
+        foreach($users as $user) {
+            if($user->getStatus() == 'pending') {
+                array_push($usersToReturn, $user);
+            }
+        }
+
+        $offers = $offersRepository->findAll();
+        $offersToReturn = [];
+
+        foreach($offers as $offer) {
+            if($offer->getStatus() == 'pending') {
+                array_push($offersToReturn, $offer);
+            }
+        }
+
+        return $this->render('home/consultantHome.html.twig',
+            ['users' => $usersToReturn, 'offers' => $offersToReturn]);
     }
 
     /**

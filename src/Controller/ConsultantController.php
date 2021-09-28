@@ -4,13 +4,15 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ConsultantType;
-use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
+use App\Repository\OffersRepository;
+
 
 class ConsultantController extends AbstractController
 {
@@ -44,5 +46,37 @@ class ConsultantController extends AbstractController
             'user' => $user,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_CONSULTANT"),
+     * @Route ("/moderate_user/{id}", name="moderateUser"),
+     */
+    public function moderateUser(UserRepository $userRepository, int $id): Response
+    {
+        $user = $userRepository->find($id);
+        $user->setStatus('validated');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('homeConsultant');
+    }
+
+    /**
+     * @IsGranted("ROLE_CONSULTANT"),
+     * @Route ("/moderate_offer/{id}", name="moderateOffer"),
+     */
+    public function moderateOffer(OffersRepository $offersRepository, int $id): Response
+    {
+        $offer = $offersRepository->find($id);
+        $offer->setStatus('validated');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($offer);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('homeConsultant');
     }
 }

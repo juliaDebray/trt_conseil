@@ -4,6 +4,36 @@
 
 {% block body %}
     <div class="container">
-        <p>Panneau de modération du consultant</p>
+
+    <h1 class="text-center bg-info text-white-50">Vos demandes en attente de validation</h1>
+    <h2>Les utilisateurs</h2>
+    <div class="container border">
+        {% if users %}
+            {% for user in users %}
+                <div class="row m-2 justify-content-between border-info">
+                    {{ user.email }}
+                    <a class="btn btn-info" href="{{ path('moderateUser', {'id':user.id}) }}">Valider le compte</a>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>Aucune demande en attente</p>
+        {% endif %}
     </div>
+    <h2>Les offres</h2>
+        <div class="container border">
+            {% if offers %}
+                {% for offer in offers %}
+                    <div class="row m-2 justify-content-between border-info">
+                        {{ offer.name }}
+                        {{ offer.description }}
+                        <a class="btn btn-info" href="{{ path('moderateOffer', {'id':offer.id}) }}">Valider l'offre</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Aucune demande en attente</p>
+            {% endif %}
+        </div>
+    <h2>Les candidatures</h2>
+    </div>
+
 {% endblock %}
