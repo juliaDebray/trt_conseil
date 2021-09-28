@@ -13,7 +13,7 @@
 </head>
 <body>
 {% block header %}
-<header class="container py-2 bg-secondary text-light d-flex flex-row justify-content-center">
+<header class="py-2 bg-secondary text-light d-flex flex-row justify-content-center">
     <div class="row d-flex">
         <div class="col-1">
         <div>LOGO</div>
@@ -39,7 +39,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-2">
                     {% if is_granted('ROLE_RECRUITER') %}
                         <a class="btn btn-primary btn-block" href="{{ path('homeRecruiter') }}">Accueil</a>
                     {% endif %}

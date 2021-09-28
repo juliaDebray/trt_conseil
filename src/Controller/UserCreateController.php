@@ -8,7 +8,6 @@ use App\Form\UserType;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +24,7 @@ class UserCreateController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user_create/index.html.twig', [
+        return $this->render('user_create/_consultantForm.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -39,9 +38,11 @@ class UserCreateController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $user->setStatus('pending');
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            {
+                $user->setStatus('pending');
+            }
 
             $passwordToHash = $user->getPassword();
             $user->setPassword($passwordHasher->hashPassword($user, $passwordToHash));
