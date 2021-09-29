@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Offers_list{% endblock %}
+{% block title %}Mes offres{% endblock %}
 
 {% block body %}
     <div class="container border">
@@ -12,7 +12,7 @@
                 <div class="row m-2 d-flex justify-content-between">
                     {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
                     {% if offer.status == 'validated' %}
-                    <button class="btn btn-primary" type="submit">Liste des candidats</button>
+                        <a class="btn btn-primary" href="{{ path('candidatures_show', {'offerId':offer.id }) }}" >Liste des candidats</a>
                     {% else %}
                         <p>En attente de validation</p>
                     {% endif %}

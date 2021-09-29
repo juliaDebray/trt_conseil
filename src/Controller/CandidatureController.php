@@ -58,6 +58,18 @@ class CandidatureController extends AbstractController
     }
 
     /**
+     * @Route("/{offerId}", name="candidatures_show", methods={"GET"}),
+     */
+    public function showCandidates(int $offerId, CandidatureRepository $candidatureRepository): Response
+    {
+        $candidates = $candidatureRepository->findBy([ 'offer'=>$offerId, 'status'=>'validated' ]);
+
+        return $this->render('candidature/show.html.twig', [
+            'candidates' => $candidates,
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="candidature_show", methods={"GET"}),
      */
     public function show(Candidature $candidature): Response

@@ -3,24 +3,25 @@
 {% block title %}Candidature{% endblock %}
 
 {% block body %}
-    <h1>Candidature</h1>
+    <div class="container border">
+        <div class="row bg-primary px-3 justify-content-center text-white-50">
+            <h1 class="text-center">Vos candidats</h1>
+        </div>
+        <div class="row m-3 justify-content-between">
+            {% if candidates %}
+                {% for candidate in candidates %}
+                    {{ candidate.candidate.firstname }}
+                    {{ candidate.candidate.lastname }}
+                    <a class="btn btn-primary" href="{{ asset('uploads/curriculumVitae/' ~ candidate.candidate.curriculumVitae) }}">Voir le CV du candidat (PDF)</a>
+                {% endfor %}
+            {% else %}
+            <p>Vous n'avez aucune candidature pour le moment.</p>
+            {% endif %}
+        </div>
+        <div class="'row ">
+        </div>
+    </div>
+    <a class="btn btn-info" href="{{ path('home') }}">Retour</a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ candidature.id }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ candidature.status }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('candidature_index') }}">back to list</a>
-
-    <a href="{{ path('candidature_edit', {'id': candidature.id}) }}">edit</a>
-
-    {{ include('candidature/_delete_form.html.twig') }}
 {% endblock %}
