@@ -32,6 +32,7 @@ class OffersRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
     // /**
     //  * @return Offers[] Returns an array of Offers objects
     //  */

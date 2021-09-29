@@ -11,7 +11,11 @@
             {% for offer in offers %}
                 <div class="row m-2 d-flex justify-content-between">
                     {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
+                    {% if offer.status == 'validated' %}
                     <button class="btn btn-primary" type="submit">Liste des candidats</button>
+                    {% else %}
+                        <p>En attente de validation</p>
+                    {% endif %}
                 </div>
             {% endfor %}
         {%  else %}

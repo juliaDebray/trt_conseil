@@ -26,7 +26,7 @@ class HomeController extends AbstractController
 
         if($this->isGranted('ROLE_CANDIDATE', $userRole))
         {
-            $offers = $offersRepository->findAll();
+            $offers = $offersRepository->findBy(['status' => 'validated']);
             return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
         }
 
