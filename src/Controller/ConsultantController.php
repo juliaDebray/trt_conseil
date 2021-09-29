@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Event\CandidatureAcceptedEvent;
 use App\Form\ConsultantType;
 use App\Repository\CandidatureRepository;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,14 +87,26 @@ class ConsultantController extends AbstractController
      * @IsGranted("ROLE_CONSULTANT"),
      * @Route ("/moderate_candidate/{id}", name="moderateCandidate"),
      */
-    public function moderateCandidature(CandidatureRepository $candidatureRepository, int $id): Response
+    public function moderateCandidature(CandidatureRepository $candidatureRepository, EventDispatcherInterface $eventDispatcher, int $id): Response
     {
-        $offer = $candidatureRepository->find($id);
-        $offer->setStatus('validated');
+        $candidature = $candidatureRepository->find($id);
+        $candidature->setStatus('validated');
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($offer);
+        $entityManager->persist($candidature);
         $entityManager->flush();
+
+        $candidate = $candidature->getCandidate();
+        $recruiter = $candidature->getOffer()->getAuthorId();
+
+        $event = new CandidatureAcceptedEvent(
+            $candidate->getFirstname(),
+            $candidate->getLastname(),
+            $candidate->getCurriculumVitae(),
+            $recruiter->getEmail(),
+        );
+
+        $eventDispatcher->dispatch($event);
 
         return $this->redirectToRoute('homeConsultant');
     }
