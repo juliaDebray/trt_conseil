@@ -11,7 +11,7 @@
             {% for offer in offers %}
                 <div class="row m-2 d-flex justify-content-between">
                     {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
-                    <button class="btn btn-info" type="submit">Postuler</button>
+                    <a class="btn btn-info" href="{{ path('candidature_new', { 'offerId': offer.id }) }}">Postuler</a>
                 </div>
             {% endfor %}
         {%  else %}

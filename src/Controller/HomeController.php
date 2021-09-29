@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CandidatureRepository;
 use App\Repository\OffersRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -14,7 +15,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/home", name="home"),
      */
-    public function index(OffersRepository $offersRepository): Response
+    public function index(OffersRepository $offersRepository, CandidatureRepository $candidatureRepository): Response
     {
         $user = $this->getUser();
 
@@ -27,6 +28,7 @@ class HomeController extends AbstractController
         if($this->isGranted('ROLE_CANDIDATE', $userRole))
         {
             $offers = $offersRepository->findBy(['status' => 'validated']);
+
             return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
         }
 

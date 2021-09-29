@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OffersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Offers
      * @ORM\JoinColumn(nullable=false)
      */
     private $author_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="offer", orphanRemoval=true)
+     */
+    private $candidates;
+
+    public function __construct()
+    {
+        $this->candidates = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +116,36 @@ class Offers
     public function setAuthorId(?User $author_id): self
     {
         $this->author_id = $author_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidature[]
+     */
+    public function getCandidates(): Collection
+    {
+        return $this->candidates;
+    }
+
+    public function addCandidate(Candidature $candidate): self
+    {
+        if (!$this->candidates->contains($candidate)) {
+            $this->candidates[] = $candidate;
+            $candidate->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidature $candidate): self
+    {
+        if ($this->candidates->removeElement($candidate)) {
+            // set the owning side to null (unless already changed)
+            if ($candidate->getOffer() === $this) {
+                $candidate->setOffer(null);
+            }
+        }
 
         return $this;
     }

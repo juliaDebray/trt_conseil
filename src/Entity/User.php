@@ -73,9 +73,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $curriculum_vitae;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="candidate", orphanRemoval=true)
+     */
+    private $candidatures;
+
     public function __construct()
     {
         $this->offers_published = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,6 +271,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCurriculumVitae(?string $curriculum_vitae): self
     {
         $this->curriculum_vitae = $curriculum_vitae;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidature[]
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidate() === $this) {
+                $candidature->setCandidate(null);
+            }
+        }
 
         return $this;
     }
