@@ -42,6 +42,7 @@
                 <div class="col-2">
                     {% if is_granted('ROLE_RECRUITER') %}
                         <a class="btn btn-primary btn-block" href="{{ path('homeRecruiter') }}">Accueil</a>
+                        <a class="btn btn-primary btn-block" href="{{ path('offers') }}">Créer une offre d'emploi</a>
                     {% endif %}
                     {% if is_granted('ROLE_CANDIDATE') %}
                         <a class="btn btn-info btn-block" href="{{ path('home', { id: app.user.id}) }}">Accueil</a>
