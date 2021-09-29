@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+
+{% endblock %}
+{% block body %}
+    <p>
+        Bonjour,
+    </p>
+    <p>
+        Le candidat : {{candidateData.candidateFirstname }} {{candidateData.candidateLastname }}
+        a postulé à votre offre d'emploi : {{ candidateData.offerName }}.
+    </p>
+    <p>
+        Vous trouverez son curriculum vitae en pièce jointe de ce mail.
+    </p>
+    <p>
+        Cordialement,
+    </p>
+    <p>
+        Votre consultante, Julia Debray
+    </p>
+{% endblock %}
+{% block footer %}
+{% endblock %}

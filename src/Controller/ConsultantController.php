@@ -98,12 +98,14 @@ class ConsultantController extends AbstractController
 
         $candidate = $candidature->getCandidate();
         $recruiter = $candidature->getOffer()->getAuthorId();
+        $offer = $candidature->getOffer();
 
         $event = new CandidatureAcceptedEvent(
             $candidate->getFirstname(),
             $candidate->getLastname(),
             $candidate->getCurriculumVitae(),
             $recruiter->getEmail(),
+            $offer->getName(),
         );
 
         $eventDispatcher->dispatch($event);
