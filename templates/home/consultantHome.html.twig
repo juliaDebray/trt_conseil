@@ -15,7 +15,7 @@
                     <a class="btn btn-info" href="{{ path('moderateUser', {'id':user.id}) }}">Valider le compte</a>
                 </div>
             {% endfor %}
-            {% else %}
+        {% else %}
             <p>Aucune demande en attente</p>
         {% endif %}
     </div>
@@ -34,6 +34,18 @@
             {% endif %}
         </div>
     <h2>Les candidatures</h2>
+        <div class="container border">
+            {% if candidates %}
+                {% for candidate in candidates %}
+                    <div class="row m-2 justify-content-between border-info">
+                        {{ candidate.candidate.firstname }} {{ candidate.candidate.lastname }} {{ candidate.offer.name }}
+                        <a class="btn btn-info" href="{{ path('moderateCandidate', {'id':candidate.id}) }}">Valider la candidature</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Aucune demande en attente</p>
+            {% endif %}
+        </div>
     </div>
 
 {% endblock %}

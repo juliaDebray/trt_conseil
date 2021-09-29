@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ConsultantType;
+use App\Repository\CandidatureRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,6 +72,22 @@ class ConsultantController extends AbstractController
     public function moderateOffer(OffersRepository $offersRepository, int $id): Response
     {
         $offer = $offersRepository->find($id);
+        $offer->setStatus('validated');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($offer);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('homeConsultant');
+    }
+
+    /**
+     * @IsGranted("ROLE_CONSULTANT"),
+     * @Route ("/moderate_candidate/{id}", name="moderateCandidate"),
+     */
+    public function moderateCandidature(CandidatureRepository $candidatureRepository, int $id): Response
+    {
+        $offer = $candidatureRepository->find($id);
         $offer->setStatus('validated');
 
         $entityManager = $this->getDoctrine()->getManager();

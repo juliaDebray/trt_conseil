@@ -63,28 +63,16 @@ class HomeController extends AbstractController
      * @IsGranted ("ROLE_CONSULTANT")
      * @Route("/consultant/home", name="homeConsultant"),
      */
-    public function homeConsultant(UserRepository $userRepository, OffersRepository $offersRepository): Response
+    public function homeConsultant(UserRepository $userRepository,
+                                   OffersRepository $offersRepository,
+                                   CandidatureRepository $candidatureRepository): Response
     {
-        $users = $userRepository->findAll();
-        $usersToReturn = [];
-
-        foreach($users as $user) {
-            if($user->getStatus() == 'pending') {
-                array_push($usersToReturn, $user);
-            }
-        }
-
-        $offers = $offersRepository->findAll();
-        $offersToReturn = [];
-
-        foreach($offers as $offer) {
-            if($offer->getStatus() == 'pending') {
-                array_push($offersToReturn, $offer);
-            }
-        }
+        $users = $userRepository->findBy([ 'status' =>'pending' ]);
+        $offers = $offersRepository->findBy([ 'status' => 'pending' ]);
+        $candidates = $candidatureRepository->findBy(['status'=>'pending']);
 
         return $this->render('home/consultantHome.html.twig',
-            ['users' => $usersToReturn, 'offers' => $offersToReturn]);
+            [ 'users' => $users, 'offers' => $offers, 'candidates' => $candidates ]);
     }
 
     /**
