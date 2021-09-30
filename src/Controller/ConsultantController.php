@@ -53,11 +53,11 @@ class ConsultantController extends AbstractController
 
     /**
      * @IsGranted("ROLE_CONSULTANT"),
-     * @Route ("/moderate_user/{id}", name="moderateUser"),
+     * @Route ("/moderate_user/{userId}", name="moderateUser"),
      */
-    public function moderateUser(UserRepository $userRepository, int $id): Response
+    public function moderateUser(UserRepository $userRepository, int $userId): Response
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->find($userId);
         $user->setStatus('validated');
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -69,11 +69,11 @@ class ConsultantController extends AbstractController
 
     /**
      * @IsGranted("ROLE_CONSULTANT"),
-     * @Route ("/moderate_offer/{id}", name="moderateOffer"),
+     * @Route ("/moderate_offer/{offerId}", name="moderateOffer"),
      */
-    public function moderateOffer(OffersRepository $offersRepository, int $id): Response
+    public function moderateOffer(OffersRepository $offersRepository, int $offerId): Response
     {
-        $offer = $offersRepository->find($id);
+        $offer = $offersRepository->find($offerId);
         $offer->setStatus('validated');
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -85,11 +85,13 @@ class ConsultantController extends AbstractController
 
     /**
      * @IsGranted("ROLE_CONSULTANT"),
-     * @Route ("/moderate_candidate/{id}", name="moderateCandidate"),
+     * @Route ("/moderate_candidate/{candidatureId}", name="moderateCandidate"),
      */
-    public function moderateCandidature(CandidatureRepository $candidatureRepository, EventDispatcherInterface $eventDispatcher, int $id): Response
+    public function moderateCandidature(CandidatureRepository $candidatureRepository,
+                                        EventDispatcherInterface $eventDispatcher,
+                                        int $candidatureId): Response
     {
-        $candidature = $candidatureRepository->find($id);
+        $candidature = $candidatureRepository->find($candidatureId);
         $candidature->setStatus('validated');
 
         $entityManager = $this->getDoctrine()->getManager();

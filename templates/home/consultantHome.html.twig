@@ -11,12 +11,17 @@
         {% if users %}
             {% for user in users %}
                 <div class="row m-2 justify-content-between border-info">
+                    <div class="col">
                     {{ user.email }}
-                    <a class="btn btn-info" href="{{ path('moderateUser', {'id':user.id}) }}">Valider le compte</a>
+                    </div>
+                    <div class="col justify-content-end">
+                        <a class="btn mx-2 btn-outline-success" href="{{ path('moderateUser', {'userId':user.id}) }}">Valider le compte</a>
+                        <a class="btn mx-2 btn-outline-danger" href="{{ path('deleteUser', {'userId':user.id}) }}">Refuser le compte</a>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
-            <p>Aucune demande en attente</p>
+            <p class="text-info">Aucune demande en attente</p>
         {% endif %}
     </div>
     <h2>Les offres</h2>
@@ -24,26 +29,35 @@
             {% if offers %}
                 {% for offer in offers %}
                     <div class="row m-2 justify-content-between border-info">
-                        {{ offer.name }}
-                        {{ offer.description }}
-                        <a class="btn btn-info" href="{{ path('moderateOffer', {'id':offer.id}) }}">Valider l'offre</a>
+                        <div class="col">
+                        {{ offer.name }} {{ offer.description }}
+                        </div>
+                        <div class="col justify-content-end">
+                            <a class="btn mx-2 btn-outline-success" href="{{ path('moderateOffer', {'offerId':offer.id}) }}">Valider l'offre</a>
+                            <a class="btn mx-2 btn-outline-danger" href="{{ path('deleteOffer', {'offerId':offer.id}) }}">Refuser le compte</a>
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Aucune demande en attente</p>
+                <p class="text-info">Aucune demande en attente</p>
             {% endif %}
         </div>
     <h2>Les candidatures</h2>
         <div class="container border">
             {% if candidates %}
                 {% for candidate in candidates %}
-                    <div class="row m-2 justify-content-between border-info">
+                    <div class="row m-2 border-info justify-content-between">
+                        <div class="col">
                         {{ candidate.candidate.firstname }} {{ candidate.candidate.lastname }} {{ candidate.offer.name }}
-                        <a class="btn btn-info" href="{{ path('moderateCandidate', {'id':candidate.id}) }}">Valider la candidature</a>
+                        </div>
+                        <div class="col justify-content-end">
+                            <a class="btn mx-2 btn-outline-success" href="{{ path('moderateCandidate', {'candidatureId':candidate.id}) }}">Valider la candidature</a>
+                            <a class="btn mx-2 btn-outline-danger" href="{{ path('deleteCandidature', {'candidatureId':candidate.id}) }}">Refuser la candidature</a>
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Aucune demande en attente</p>
+                <p class="text-info">Aucune demande en attente</p>
             {% endif %}
         </div>
     </div>

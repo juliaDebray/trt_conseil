@@ -6,6 +6,7 @@ use App\Entity\Candidature;
 use App\Form\CandidatureType;
 use App\Repository\CandidatureRepository;
 use App\Repository\OffersRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,16 +101,16 @@ class CandidatureController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="candidature_delete", methods={"POST"}),
+     * @IsGranted ("ROLE_CONSULTANT"),
+     * @Route("/delete/{candidatureId}",name="deleteCandidature",methods={"GET","POST"}),
      */
-    public function delete(Request $request, Candidature $candidature): Response
+    public function delete(int $candidatureId, CandidatureRepository $candidatureRepository) : Response
     {
-        if ($this->isCsrfTokenValid('delete'.$candidature->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($candidature);
-            $entityManager->flush();
-        }
+        $candidatureToDelete = $candidatureRepository->find($candidatureId);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($candidatureToDelete);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('candidature_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('homeConsultant');
     }
 }

@@ -6,7 +6,6 @@ use App\Event\CandidatureAcceptedEvent;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 class CandidatureAcceptedSubscriber implements EventSubscriberInterface
 {
@@ -19,12 +18,6 @@ class CandidatureAcceptedSubscriber implements EventSubscriberInterface
 
     public function onCandidatureAcceptedEvent(CandidatureAcceptedEvent $event): void
     {
-//        $email = (new Email())
-//            ->from('maSuperAppli@mail.com')
-//            ->to($event->getRecruiterEmail())
-//            ->subject('new mail')
-//            ->text('coucou');
-
         $email = (new TemplatedEmail())
             ->from('no-reply@monappli.com')
             ->to($event->getRecruiterEmail())
