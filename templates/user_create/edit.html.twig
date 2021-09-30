@@ -21,7 +21,9 @@
     <div class="row">
         <div class="m-1 form-group">
             {{ form_row(form.curriculum_vitae) }}
+            {% if user.curriculumVitae %}
             <a href="{{ asset('uploads/curriculumVitae/' ~ user.curriculumVitae) }}">voir mon CV téléchargé (PDF)</a>
+            {% endif %}
         </div>
     </div>
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Créer un compte{% endblock %}
 
 {% block body %}
     <div class="Container d-flex justify-content-center">
@@ -9,7 +9,9 @@
 
             {{ include('user_create/_form.html.twig') }}
 
-            <a class="btn btn_primary" href="{{ path('app_login') }}">Retour</a>
+            <div class="row">
+            <a class="btn btn-outline-info btn-block my-3 text-center" href="{{ path('app_login') }}">Retour</a>
+            </div>
         </div>
     </div>
 {% endblock %}

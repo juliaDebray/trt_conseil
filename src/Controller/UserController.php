@@ -14,24 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/user")
  */
-class UserCreateController extends AbstractController
+class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_create_index", methods={"GET"}),
-     */
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user_create/_consultantForm.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
-
-    /**
+     * A new user create his account
+     *
      * @Route ("/new",name="user_create_new",methods={"GET","POST"}),
      */
     public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
@@ -63,16 +54,32 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route ("/{id}/toDefine", name="user_create_show",methods={"GET"}),
+     * the recruiter edits his profile
+     *
+     * @IsGranted("ROLE_RECRUITER"),
+     * @Route("/recruiter/{id}",name="recruiter_edit",methods={"GET","POST"}),
      */
-    public function show(User $user): Response
+    public function editRecruiter(Request $request, User $user): Response
     {
-        return $this->render('user_create/show.html.twig', [
+        $form = $this->createForm(RecruiterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->renderForm('user_create/editRecruiter.html.twig', [
             'user' => $user,
+            'form' => $form,
         ]);
     }
 
     /**
+     * the candidate edits his profile
+     *
+     * @IsGranted ("ROLE_CANDIDATE"),
      * @Route("/candidate/{id}",name="candidate_edit",methods={"GET","POST"}),
      */
     public function edit(Request $request, User $user, FileUploader $fileUploader): Response
@@ -100,26 +107,8 @@ class UserCreateController extends AbstractController
     }
 
     /**
-     * @Route("/recruiter/{id}",name="recruiter_edit",methods={"GET","POST"}),
-     */
-    public function editRecruiter(Request $request, User $user): Response
-    {
-        $form = $this->createForm(RecruiterType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->renderForm('user_create/editRecruiter.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }
-
-    /**
+     * the consultant refuse the new account of a user
+     *
      * @IsGranted ("ROLE_CONSULTANT"),
      * @Route("/delete/{userId}",name="deleteUser",methods={"GET","POST"}),
      */

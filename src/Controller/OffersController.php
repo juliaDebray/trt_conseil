@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class OffersController extends AbstractController
 {
     /**
+     * the recruiter create a new offer
+     *
+     * @IsGranted ("ROLE_RECRUITER")
      * @Route ("/offers", name="offers"),
      */
     public function index(Request $request): Response
@@ -43,6 +46,8 @@ class OffersController extends AbstractController
     }
 
     /**
+     * The consultant refuse the new offer
+     *
      * @IsGranted ("ROLE_CONSULTANT"),
      * @Route("/delete/{offerId}",name="deleteOffer",methods={"GET","POST"}),
      */

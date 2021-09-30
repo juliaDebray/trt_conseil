@@ -29,7 +29,8 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            (dd($e->getMessage(), $e->getCode(), $e->getTrace()));
+//            throw new \Exception('une erreur est survenue');
+            dd($e->getMessage());
         }
 
         return $fileName;

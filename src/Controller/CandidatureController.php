@@ -18,16 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidatureController extends AbstractController
 {
     /**
-     * @Route("/", name="candidature_index", methods={"GET"}),
-     */
-    public function index(CandidatureRepository $candidatureRepository): Response
-    {
-        return $this->render('candidature/index.html.twig', [
-            'candidatures' => $candidatureRepository->findAll(),
-        ]);
-    }
-
-    /**
+     * A candidate applies for an offer
+     *
+     * @IsGranted ("ROLE_CANDIDATE")
      * @Route("/new/{offerId}", name="candidature_new", methods={"GET","POST"}),
      */
     public function new(Request $request, int $offerId, OffersRepository $offersRepository): Response
@@ -59,6 +52,9 @@ class CandidatureController extends AbstractController
     }
 
     /**
+     * show candidate to recruiter depend on the offer and its status
+     *
+     * @IsGranted ("ROLE_RECRUITER")
      * @Route("/{offerId}", name="candidatures_show", methods={"GET"}),
      */
     public function showCandidates(int $offerId, CandidatureRepository $candidatureRepository): Response
@@ -71,36 +67,8 @@ class CandidatureController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="candidature_show", methods={"GET"}),
-     */
-    public function show(Candidature $candidature): Response
-    {
-        return $this->render('candidature/show.html.twig', [
-            'candidature' => $candidature,
-        ]);
-    }
-
-    /**
-     * @Route("/edit/{id}", name="candidature_edit", methods={"GET","POST"}),
-     */
-    public function edit(Request $request, Candidature $candidature): Response
-    {
-        $form = $this->createForm(CandidatureType::class, $candidature);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('candidature_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('candidature/edit.html.twig', [
-            'candidature' => $candidature,
-            'form' => $form,
-        ]);
-    }
-
-    /**
+     * the consultant refuse the new candidate
+     *
      * @IsGranted ("ROLE_CONSULTANT"),
      * @Route("/delete/{candidatureId}",name="deleteCandidature",methods={"GET","POST"}),
      */

@@ -13,11 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
+     * Define the hom foreach type of user and redirect to the good home route
      * @Route("/home", name="home"),
      */
     public function index(OffersRepository $offersRepository, CandidatureRepository $candidatureRepository): Response
     {
         $user = $this->getUser();
+
+        if(!$user) {
+            return $this->redirectToRoute('default');
+        }
 
         if($user->getStatus() != 'validated') {
             return $this->render('user_create/created.html.twig');
@@ -29,7 +34,7 @@ class HomeController extends AbstractController
         {
             $offers = $offersRepository->findBy(['status' => 'validated']);
 
-            return $this->render('home/home.html.twig', [ 'offers' => $offers ]);
+            return $this->render('home/candidateHome.html.twig', [ 'offers' => $offers ]);
         }
 
         else if($this->isGranted('ROLE_CONSULTANT', $userRole))

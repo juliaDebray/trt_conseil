@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Créer un compte{% endblock %}
 
 {% block body %}
     <div class="Container d-flex justify-content-center border">
         <div class="column justify-content-center">
             <p class="row text-info">Votre demande de création de compte a été prise en compte.</p>
-            <p class="row text-info">Il sera activé sous environs 24h.</p>
-            <a class="btn btn-outline-info" href="{{ path('app_login') }}">Retour</a>
+            <p class="row text-info">Il sera activé sous environs 24h depuis sa date de création.</p>
+            <a class="btn btn-outline-info" href="{{ path('app_logout') }}">Retour</a>
         </div>
     </div>
 {% endblock %}

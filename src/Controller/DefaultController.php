@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
+     * show a disconnected message
+     *
      * @Route ("/", name="default_controller"),
      */
     public function index(): Response

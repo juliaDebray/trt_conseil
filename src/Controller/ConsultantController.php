@@ -20,6 +20,8 @@ use App\Repository\OffersRepository;
 class ConsultantController extends AbstractController
 {
     /**
+     * the admin create a consultant account
+     *
      * @IsGranted("ROLE_ADMIN"),
      * @Route ("/new_consultant", name="consultant"),
      */
@@ -52,6 +54,8 @@ class ConsultantController extends AbstractController
     }
 
     /**
+     * the consultant accept a new user account
+     *
      * @IsGranted("ROLE_CONSULTANT"),
      * @Route ("/moderate_user/{userId}", name="moderateUser"),
      */
@@ -68,6 +72,8 @@ class ConsultantController extends AbstractController
     }
 
     /**
+     * the consultant accept a new offer
+     *
      * @IsGranted("ROLE_CONSULTANT"),
      * @Route ("/moderate_offer/{offerId}", name="moderateOffer"),
      */
@@ -84,6 +90,8 @@ class ConsultantController extends AbstractController
     }
 
     /**
+     * the consultant accet a new candidature
+     *
      * @IsGranted("ROLE_CONSULTANT"),
      * @Route ("/moderate_candidate/{candidatureId}", name="moderateCandidate"),
      */

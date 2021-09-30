@@ -10,13 +10,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class ConnectionController extends AbstractController
 {
     /**
+     * Connect a user or not
+     *
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             return $this->redirectToRoute('home');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -27,6 +29,8 @@ class ConnectionController extends AbstractController
     }
 
     /**
+     * disconnect a user
+     *
      * @Route("/logout", name="app_logout")
      */
     public function logout()

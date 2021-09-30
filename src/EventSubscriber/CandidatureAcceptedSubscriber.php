@@ -16,6 +16,9 @@ class CandidatureAcceptedSubscriber implements EventSubscriberInterface
         $this->mailer = $mailer;
     }
 
+    /**
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function onCandidatureAcceptedEvent(CandidatureAcceptedEvent $event): void
     {
         $email = (new TemplatedEmail())
