@@ -20,40 +20,6 @@ use App\Repository\OffersRepository;
 class ConsultantController extends AbstractController
 {
     /**
-     * the admin create a consultant account
-     *
-     * @IsGranted("ROLE_ADMIN"),
-     * @Route ("/new_consultant", name="consultant"),
-     */
-    public function newConsultant(Request $request, UserPasswordHasherInterface $passwordHasher): Response
-    {
-        $user = new User();
-        $form = $this->createForm(ConsultantType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $user->setRoles(['ROLE_CONSULTANT']);
-            $user->setStatus('validated');
-
-            $passwordToHash = $user->getPassword();
-
-            $user->setPassword($passwordHasher->hashPassword($user, $passwordToHash));
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->render('consultant/consultant_created.html.twig');
-        }
-
-        return $this->renderForm('home/adminHome.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }
-
-    /**
      * the consultant accept a new user account
      *
      * @IsGranted("ROLE_CONSULTANT"),

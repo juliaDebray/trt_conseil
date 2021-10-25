@@ -1,0 +1,13 @@
+{% if field.value %}
+{% for value in field.value %}
+    {% if value == 'ROLE_ADMIN' %}
+        Administrateur
+    {% elseif value == 'ROLE_CONSULTANT' %}
+        Consultant
+    {% elseif value == 'ROLE_RECRUITER' %}
+        Recruteur
+    {% elseif value == 'ROLE_CANDIDATE' %}
+        Candidat
+    {% endif %}
+{% endfor %}
+{% endif %}

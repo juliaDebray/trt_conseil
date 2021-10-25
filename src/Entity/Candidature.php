@@ -34,6 +34,11 @@ class Candidature
      */
     private $status;
 
+    public function __toString()
+    {
+        return $this->candidate;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

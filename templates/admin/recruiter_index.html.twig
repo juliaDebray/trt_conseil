@@ -1,0 +1,4 @@
+{% if field.value %}
+        {% set formatedValue = field.value|split(':',2) %}
+            {{ formatedValue[1] }}
+{% endif %}

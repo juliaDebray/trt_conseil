@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function PHPUnit\Framework\isEmpty;
 
 
 /**
@@ -84,6 +85,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->candidatures = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        if($this->getRoles() == ['ROLE_ADMIN'])
+        {
+            return 'Administrateur: ' . $this->getUserIdentifier();
+        }
+        if($this->getRoles() == ['ROLE_RECRUITER'])
+        {
+            return 'Recruteur: ' . $this->getUserIdentifier();
+        }
+        if($this->getRoles() == ['ROLE_CANDIDATE'])
+        {
+            return 'Candidat : ' . $this->getUserIdentifier();
+        }
+        if($this->getRoles() == ['ROLE_CONSULTANT'])
+        {
+            return 'Consultant : ' . $this->getUserIdentifier();
+        }
+        return 'erreur';
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,8 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }

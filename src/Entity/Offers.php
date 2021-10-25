@@ -55,6 +55,11 @@ class Offers
         $this->candidates = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,7 +146,6 @@ class Offers
     public function removeCandidate(Candidature $candidate): self
     {
         if ($this->candidates->removeElement($candidate)) {
-            // set the owning side to null (unless already changed)
             if ($candidate->getOffer() === $this) {
                 $candidate->setOffer(null);
             }

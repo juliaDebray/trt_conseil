@@ -44,7 +44,7 @@ class HomeController extends AbstractController
 
         else if($this->isGranted('ROLE_ADMIN', $userRole))
         {
-            return $this->redirectToRoute('homeAdmin');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->redirectToRoute('homeRecruiter');
