@@ -1,68 +1,79 @@
 # trt-conseil
 
 Ce projet permet de mettre en contact facilement des employeurs et des candidats via la mise en ligne d'offres d'emplois pour les employeurs et de CV pour les candidats.
-Le tout géré via différents compte d'administration.
+Le tout géré via différents compte : un compte administrateur et un compte consultant.
 
-## Prérequis
+## Requirements
 
 Il faut :
 - composer (v2.1.8)
 - symfony (v4.26.3)
-- server (ex: MAMP)
+- un serveur (ex: MAMP)
 - mailgun
 
-créer un host 
+créer un host pour le projet
 
 ## Installation
 
-La premier chose à faire est d'installer le dépôt sur votre machine
+La première chose à faire est d'installer le dépôt sur votre machine
 
 `git clone git@github.com:juliaDebray/trt_conseil.git`
 
-Ensuite copier le `.env.example` et le nommer en `.env`. 
+Puis dnas l'invit de commande :
 
-A la ligne 30 du fichier .env, rentrer votre identifiant, mot de passe, port que vous utiliserez et nom de votre base de donnée. 
+```bash
+cd trt_conseil
+composer install
+```
 
-créer un vhost
+A la ligne 30 du fichier .env, rentrez votre identifiant, mot de passe, port que vous utiliserez et nom de votre base de donnée. 
 
-lancer la commande `composer install`
+créer le vhost pour le projet
 
-lancer la commande php bin/console doctrine:database:create
+Puis exécutez dans l'invit de commande :
 
-lancer la commande php bin/console make:migration
+```bash
+php bin/console doctrine:database:create 
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+chmod 777 public/uploads/booksCover
+```
 
-lancer la commande php bin/console doctrine:migrations:migrate
-
-lancer la commande composer require symfony/mailer
-
-lancer la commande composer require symfony/mailgun-mailer
-
-dans le fichier .env, décommenter la ligne 22 et rajouter votre clé secrète Mailgun.
-
-Créer un compte administrateur :
-
-lancer la commande php bin/console security:hash-password pour créer un mot de passe hashé.
-
-choisir l'option 0 correspondant à la classe User et rentrer votre mot de passe.
-
-Copier le password hash.
-
-Aller dans la base de donnée, dans la table user et rentrer 1 dans l'id, choisir un email pour l'email, rentrer ["ROLE_ADMIN"] dans roles, mettre le mot de passe hashé dans password(attention il ne doit pas y avoir d'espace à la fin), et enfin écrire 'validated' dans status. éxecuter la requête.
+dans le fichier .env, rajouter votre clé secrète Mailgun à la ligne 22.
 
 Pour tester le projet :
+Vous disposez des comptes suivants : 
+
+| Accout   | Login                | Password |
+|----------|----------------------|----------|
+| Admin    | admin@admin.fr       | admin    |
+| Candidat | candidat@candidat.fr | candidat |
+| Consultant | consultant@consultant.fr | consultant |
+| Recruteur  | recruteur@recruteur.fr | recruteur |
+
+Pour vérifier toutes les fonctionalités : 
+
 -sur localhost, se connecter avec le compte administrateur et créer un compte consultant.
+(Vous pouvez aussi tester les autres fonctionnalités du panneau d'administrateur)
 
--créer ensuite un compte de recruteur et un compte de candidat en cliquant sur "créer un compte"
+-créer ensuite un compte de recruteur(avec une adresse mail valide) et un compte de candidat en cliquant sur "créer un compte"
 
--se connecter sur le compte consultant et valider les deux créés.
+-se connecter sur le compte consultant et valider les deux comptes créés.
 
 -créer une offre d'emploi sur le compte recruteur
 
 -valider l'offre avec le consultant
 
--candidater avec le compte candidat
+-candidater avec le compte candidat 
+(vous serez obligé d'ajouter un CV à cette étape)
 
--valider la candidature avec le consultant
+-valider la candidature avec le consultant 
+(si mailgun est bien paramétré, un mail est envoyé au recruteur à cet instant, 
+sinon vous aurez une erreur mais qui ne bloque pas la validation de la candidature)
 
 -consulter la candidature avec le recruteur
+
+-Enfin vous pouvez vérifier si le recruteur peut ajouter son nom d'entreprise 
+et l'adresse de son entreprise dans son profil
+
 
