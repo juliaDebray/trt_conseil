@@ -26,7 +26,7 @@ class OffersCrudController extends AbstractCrudController
             IdField::new('id', 'ID')->onlyOnIndex(),
             TextField::new('name', 'Intitulé'),
             TextField::new('company_address', 'Adresse'),
-            TextEditorField::new('Description'),
+            TextField::new('Description'),
             AssociationField::new('author_id', 'Recruteur')
                 ->setTemplatePath('admin/recruiter_index.html.twig'),
             AssociationField::new('candidates', 'Candidat')
@@ -43,7 +43,7 @@ class OffersCrudController extends AbstractCrudController
             $fields =  [
                 TextField::new('name', 'Intitulé'),
                 TextField::new('company_address', 'Adresse'),
-                TextEditorField::new('Description'),
+                TextField::new('Description'),
                 AssociationField::new('author_id', 'Recruteur'),
                 ChoiceField::new('status', 'Statut')
                     ->setChoices([

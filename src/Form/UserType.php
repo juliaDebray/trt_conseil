@@ -18,11 +18,12 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, ['required' => true])
-            ->add('roles', CollectionType::class, [
+            ->add('roles', CollectionType::class,
+                [
                 'entry_type' => ChoiceType::class,
                 'entry_options' =>
                     [
-                    'label'=> false,
+                    'label'=> 'Êtes-vous employeur ou candidat ?',
                     'required' => true,
                     'choices' =>
                         [
@@ -30,7 +31,8 @@ class UserType extends AbstractType
                         'Candidat' => 'ROLE_CANDIDATE',
                         ],
                     ],
-                ])
+                ]
+            )
             ->add('password', PasswordType::class, ['required' => true])
         ;
     }
