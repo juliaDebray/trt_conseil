@@ -25,7 +25,7 @@ Puis dans l'invit de commande :
 ```bash
 cd trt_conseil
 composer install
-chmod 777 public/uploads/booksCover
+chmod 777 public/uploads/curriculumVitae
 ```
 
 A la ligne 30 du fichier .env, rentrez votre identifiant, mot de passe, port que vous utiliserez et nom de votre base de donnée. 
