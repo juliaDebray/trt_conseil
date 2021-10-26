@@ -19,58 +19,14 @@
 {% block header %}
 
 <header class="py-2 bg-secondary text-light">
-    <h1 class="text-center">JobEncounter</h1>
-
     {% include('navbar/_navbar.html.twig') %}
-{#    {% if app.user %}#}
-{#        {% if app.user.status == 'validated'  %}#}
-{#        <div class="container">#}
-
-{#            <div class="text-right">#}
-{#            {{ app.user.username }}#}
-{#            </div>#}
-
-{#            <div class="row">#}
-
-{#                <div class="col-3">#}
-{#                    {% if is_granted('ROLE_RECRUITER') %}#}
-{#                        <a class="btn btn-info btn-block" href="{{ path('homeRecruiter') }}">Accueil</a>#}
-{#                    {% endif %}#}
-{#                    {% if is_granted('ROLE_CANDIDATE') %}#}
-{#                        <a class="btn btn-info btn-block" href="{{ path('home', { id: app.user.id}) }}">Accueil</a>#}
-{#                    {% endif %}#}
-{#                </div>#}
-
-{#                <div class="col-3">#}
-{#                    {% if is_granted('ROLE_RECRUITER') %}#}
-{#                    <a class="btn btn-info btn-block" href="{{ path('offers') }}">Créer une offre</a>#}
-{#                    {% endif %}#}
-{#                </div>#}
-
-{#                <div class="col-3">#}
-{#                    {% if is_granted('ROLE_RECRUITER') %}#}
-{#                        <a class="btn btn-info btn-block" href="{{ path('recruiter_edit', { id: app.user.id}) }}">Profil</a>#}
-{#                    {% endif %}#}
-{#                    {% if is_granted('ROLE_CANDIDATE') %}#}
-{#                        <a class="btn btn-info btn-block" href="{{ path('candidate_edit', { id: app.user.id}) }}">Profil</a>#}
-{#                    {% endif %}#}
-{#                </div>#}
-
-{#                <div class="col-3">#}
-{#                    <div>#}
-{#                        <a class="btn btn-info btn-block" href="{{ path('app_logout') }}">Déconnexion</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-
-{#        {% endif %}#}
-{#    {% endif %}#}
 </header>
 {% endblock %}
 
+
 {% block body %}
 {% endblock %}
+
 
 {% block footer %}
 <footer class="py-5 bg-dark text-light  text-light d-flex flex-row justify-content-center fixed-bottom">
