@@ -7,9 +7,10 @@ Le tout géré via différents compte : un compte administrateur et un compte co
 
 Il faut :
 - composer (v2.1.8)
-- symfony (v4.26.3)
+- symfony (v5.3)
 - un serveur (ex: MAMP)
 - mailgun
+- une database SQL
 
 créer un host pour le projet
 
@@ -19,11 +20,12 @@ La première chose à faire est d'installer le dépôt sur votre machine
 
 `git clone git@github.com:juliaDebray/trt_conseil.git`
 
-Puis dnas l'invit de commande :
+Puis dans l'invit de commande :
 
 ```bash
 cd trt_conseil
 composer install
+chmod 777 public/uploads/booksCover
 ```
 
 A la ligne 30 du fichier .env, rentrez votre identifiant, mot de passe, port que vous utiliserez et nom de votre base de donnée. 
