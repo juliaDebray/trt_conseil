@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * Define the hom foreach type of user and redirect to the good home route
+     * Define the home foreach type of user and redirect to the good home route
      * @Route("/home", name="home"),
      */
     public function index(OffersRepository $offersRepository, CandidatureRepository $candidatureRepository): Response
@@ -48,6 +48,16 @@ class HomeController extends AbstractController
         }
 
         return $this->redirectToRoute('homeRecruiter');
+    }
+
+    /**
+     * @return Response
+     * Display a basic home page
+     * @Route("/homePage", name="display_home_page"),
+     */
+    public function displayHomePage(): Response
+    {
+        return $this->render('home/homePage.html.twig');
     }
 
     /**

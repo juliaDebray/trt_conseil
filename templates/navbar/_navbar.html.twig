@@ -1,0 +1,73 @@
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <div class="container-fluid">
+            <a class="navbar-brand application_title"
+            href="{{ path('display_home_page') }}">JobEncounter</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarText"
+                aria-controls="navbarText"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="nav_title collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                {% if app.user %}
+                    <li class="nav-item text-light">
+                        <p class="nav-link text-light m-0">
+                            {{ app.user.username }}
+                        </p>
+                    </li>
+                    {% if is_granted('ROLE_RECRUITER') %}
+                        <li class="nav-item">
+                            <a class="nav-link {{ currentPath == path('homeRecruiter') ? 'active' : '' }}" href="{{ path('homeRecruiter') }}">Mes offres d'emploi</a>
+                        </li>
+                    {% elseif is_granted('ROLE_CANDIDATE') %}
+                        <li class="nav-item">
+                            <a class="nav-link {{ currentPath == path('home') ? 'active' : '' }}" href="{{ path('home', { id: app.user.id}) }}">Offres d'emploi</a>
+                        </li>
+                        {% elseif is_granted('ROLE_CONSULTANT') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('homeConsultant') }}">Panneau du consultant</a>
+                            </li>
+                    {% endif%}
+
+                    {% if is_granted('ROLE_RECRUITER') %}
+                        <li class="nav-item">
+                            <a class="nav-link {{ currentPath == path('offers')  ? 'active' : '' }}"
+                               href="{{ path('offers') }}">Créer une offre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ currentPath == path('recruiter_edit', { id: app.user.id})  ? 'active' : '' }}"
+                               href="{{ path('recruiter_edit', { id: app.user.id}) }}">Profil</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_CANDIDATE') %}
+                        <li class="nav-item">
+                            <a class="nav-link {{ currentPath == path('candidate_edit', { id: app.user.id}) ? 'active' : ''  }}"
+                               href="{{ path('candidate_edit', { id: app.user.id}) }}">Profil</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {{ currentPath == path('app_login') ? 'active' : '' }}"
+                        href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ currentPath == path('user_create_new') ? 'active' : '' }}"
+                        href="{{ path('user_create_new') }}"
+                        >Inscritpion</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
