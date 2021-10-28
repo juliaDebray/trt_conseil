@@ -1,9 +1,10 @@
-html {
+html, body {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.base-layout {
+main {
     background-color: #efefef;
+    flex-grow: 1;
 }

@@ -1,21 +1,20 @@
 {{ form_start(form) }}
-<div class="form-group">
-    {{ form_label(form.email) }}
-    {{ form_row(form.email, {'label':false }) }}
-</div>
-<div class="form-group">
-    {{ form_label(form.password) }}
-    {{ form_row(form.password, {'label':false, 'value': '' }) }}
-</div>
-<div class="form-group">
-    {{ form_label(form.roles, 'Êtes-vous employeur ou candidat ?') }}
-    {{ form_row(form.roles, {'label':false }) }}
-</div>
-<div>
-<button class="btn btn-primary">{{ button_label|default('Créer mon compte') }}</button>
-</div>
-<div>
-<a class="btn btn-danger my-3" href="{{ path('app_login') }}">Retour</a>
-</div>
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_row(form.email, { 'label': false }) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.password) }}
+        {{ form_row(form.password, { 'label': false, 'value': '' }) }}
+    </div>
 
+    <div class="form-group">
+        {{ form_label(form.roles, 'Êtes-vous employeur ou candidat ?') }}
+        {{ form_row(form.roles, { 'label': false }) }}
+    </div>
+
+    <div class="d-flex gap-2">
+        <button class="btn btn-primary">{{ button_label|default('Créer mon compte') }}</button>
+        <a class="btn btn-outline-primary flex-grow-1" href="{{ path('app_login') }}">Retour</a>
+    </div>
 {{ form_end(form) }}

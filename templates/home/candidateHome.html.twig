@@ -3,20 +3,28 @@
 {% block title %}Offers_list{% endblock %}
 
 {% block body %}
-    <div class="container border">
-        <div class="row bg-info px-3 justify-content-center text-white-50">
-            <h2>Liste des offres d'emplois</h2>
+    <div>
+        <div class="bg-primary p-2 text-center text-white mb-2">
+            <h1>Liste des offres d'emplois</h1>
         </div>
         {% if offers %}
             {% for offer in offers %}
-                <div class="row m-2 d-flex justify-content-between">
-                    {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
-                    <a class="btn btn-info" href="{{ path('candidature_new', { 'offerId': offer.id }) }}">Postuler</a>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title border-bottom pb-1 mb-3">{{ offer.name }}</h5>
+                        <p class="card-text">
+                            {{ offer.description }}
+                        </p>
+                        <address class="card-text">
+                            {{ offer.companyAddress }}
+                        </address>
+                        <a class="btn btn-primary" href="{{ path('candidature_new', { 'offerId': offer.id }) }}">Postuler</a>
+                    </div>
                 </div>
             {% endfor %}
         {%  else %}
-            <div class="row">
-            aucune offre en cours
+            <div>
+                Vous n'avez aucune candidature pour le moment.
             </div>
         {% endif %}
     </div>

@@ -5,61 +5,89 @@
 {% block body %}
     <div class="container">
 
-    <h1 class="text-center bg-info text-white-50">Vos demandes en attente de validation</h1>
-    <h2>Les utilisateurs</h2>
-    <div class="container border">
-        {% if users %}
-            {% for user in users %}
-                <div class="row m-2 justify-content-between border-info">
-                    <div class="col">
-                    {{ user.email }}
-                    </div>
-                    <div class="col justify-content-end">
-                        <a class="btn mx-2 btn-outline-success" href="{{ path('moderateUser', {'userId':user.id}) }}">Valider le compte</a>
-                        <a class="btn mx-2 btn-outline-danger" href="{{ path('deleteUser', {'userId':user.id}) }}">Refuser le compte</a>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-info">Aucune demande en attente</p>
-        {% endif %}
+    <div class="bg-primary p-2 text-center text-white mb-4">
+        <h1>Vos demandes en attente de validation</h1>
     </div>
-    <h2>Les offres</h2>
-        <div class="container border">
-            {% if offers %}
-                {% for offer in offers %}
-                    <div class="row m-2 justify-content-between border-info">
-                        <div class="col">
-                        {{ offer.name }} {{ offer.description }}
-                        </div>
-                        <div class="col justify-content-end">
-                            <a class="btn mx-2 btn-outline-success" href="{{ path('moderateOffer', {'offerId':offer.id}) }}">Valider l'offre</a>
-                            <a class="btn mx-2 btn-outline-danger" href="{{ path('deleteOffer', {'offerId':offer.id}) }}">Refuser l'offre</a>
-                        </div>
+
+    <section class="mb-4">
+        <h2>Les utilisateurs</h2>
+        <ul class="list-group list-group-flush">
+            {% if users %}
+            {% for user in users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="flex-grow-1">
+                        {{ user.email }}
                     </div>
-                {% endfor %}
+                        <div class="d-flex flex-column gap-1">
+                        <a class="btn btn-outline-success" href="{{ path('moderateUser', {'userId':user.id}) }}">
+                            Valider
+                        </a>
+                        <a class="btn btn-outline-danger" href="{{ path('deleteUser', {'userId':user.id}) }}">
+                            Refuser
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
             {% else %}
-                <p class="text-info">Aucune demande en attente</p>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Aucune demande en attente.
+                </li>
             {% endif %}
-        </div>
-    <h2>Les candidatures</h2>
-        <div class="container border">
+        </ul>
+    </section>
+    
+    <section class="mb-4">
+        <h2>Les offres</h2>
+        <ul class="list-group list-group-flush">
+            {% if offers %}
+            {% for offer in offers %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="flex-grow-1">
+                        {{ offer.name }} {{ offer.description }}
+                    </div>
+                        <div class="d-flex flex-column gap-1">
+                        <a class="btn btn-outline-success" href="{{ path('moderateOffer', {'offerId':offer.id}) }}">
+                            Valider
+                        </a>
+                        <a class="btn btn-outline-danger" href="{{ path('deleteOffer', {'offerId':offer.id}) }}">
+                            Refuser
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+            {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Aucune demande en attente.
+                </li>
+            {% endif %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Les candidatures</h2>
+        <ul class="list-group list-group-flush">
             {% if candidates %}
                 {% for candidate in candidates %}
-                    <div class="row m-2 border-info justify-content-between">
-                        <div class="col">
-                        {{ candidate.candidate.firstname }} {{ candidate.candidate.lastname }} {{ candidate.offer.name }}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="flex-grow-1">
+                            {{ candidate.candidate.firstname }} {{ candidate.candidate.lastname }} {{ candidate.offer.name }}
                         </div>
-                        <div class="col justify-content-end">
-                            <a class="btn mx-2 btn-outline-success" href="{{ path('moderateCandidate', {'candidatureId':candidate.id}) }}">Valider la candidature</a>
-                            <a class="btn mx-2 btn-outline-danger" href="{{ path('deleteCandidature', {'candidatureId':candidate.id}) }}">Refuser la candidature</a>
+                        <div class="d-flex flex-column gap-1">
+                            <a class="btn btn-outline-success" href="{{ path('moderateCandidate', {'candidatureId':candidate.id}) }}">
+                                Valider
+                            </a>
+                            <a class="btn btn-outline-danger" href="{{ path('deleteCandidature', {'candidatureId':candidate.id}) }}">
+                                Refuser
+                            </a>
                         </div>
-                    </div>
+                    </li>
                 {% endfor %}
             {% else %}
-                <p class="text-info">Aucune demande en attente</p>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Aucune demande en attente.
+                </li>
             {% endif %}
-        </div>
-    </div>
+        </ul>
+    </section>
 
 {% endblock %}

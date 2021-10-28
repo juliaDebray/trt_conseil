@@ -3,8 +3,9 @@
 {% block title %}Nouvelle offre d'emploi{% endblock %}
 
 {% block body %}
-    <div class="container px-5 d-flex flex-column justify-content-center align-middle">
-        <p class="text-info m-3 text-center">Votre demande de création d'offre d'emploi a été transmise à un administrateur. Elle sera validée sous environs 24h.</p>
-        <a class="btn mx-5 mx-2 btn-outline-info size" href="{{ path('offers') }}">Retour</a>
+    <div class="px-5 text-center">
+        <p class="m-3">Votre demande de création d'offre d'emploi a été transmise à un administrateur.</p>
+        <p>Elle sera validée sous environs 24h.</p>
+        <a class="btn btn-outline-primary" href="{{ path('offers') }}">Retour</a>
     </div>
 {% endblock %}

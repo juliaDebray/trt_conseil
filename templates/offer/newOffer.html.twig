@@ -1,28 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Création d'offre{% endblock %}
-
 {% block body %}
-    <h1 class="text-center">Créer mon offre d'emploi</h1>
-    <div class="container d-flex justify-content-center">
+    <h1 class="text-center mb-4">Créer mon offre d'emploi</h1>
+    <div class="d-flex justify-content-center">
         {{ form_start(form) }}
 
-        <div class="container">
-            <div class="m-1 form-group">
-                {{ form_label(form.name) }}
-                {{ form_row(form.name, {'label':false}) }}
-            </div>
-            <div class="m-1 form-group">
-                {{ form_label(form.company_address) }}
-                {{ form_row(form.company_address, {'label':false}) }}
-            </div>
-            <div class="m-1 form-group">
-                {{ form_label(form.description) }}
-                {{ form_row(form.description, {'label':false}) }}
-            </div>
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_row(form.name, { 'label': false }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.company_address) }}
+            {{ form_row(form.company_address, { 'label': false }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_row(form.description, { 'label': false }) }}
         </div>
 
-        <button class="btn btn-primary btn-block">{{ button_label|default('Créer mon offre d\'emploi') }}</button>
+        <button class="btn btn-primary">{{ button_label|default('Créer mon offre d\'emploi') }}</button>
 
         {{ form_end(form) }}
 

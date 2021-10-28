@@ -3,24 +3,41 @@
 {% block title %}Mes offres{% endblock %}
 
 {% block body %}
-    <div class="container border">
-        <div class="row bg-primary px-3 justify-content-center text-white-50">
-            <h2>Vos offres d'emplois</h2>
+
+    <div>
+        <div class="bg-primary p-2 text-center text-white mb-2">
+            <h1>Vos offres d'emplois</h1>
         </div>
         {% if offers %}
             {% for offer in offers %}
-                <div class="row m-2 d-flex justify-content-between">
-                    {{ offer.name }} {{ offer.description }} {{ offer.companyAddress }}
-                    {% if offer.status == 'validated' %}
-                        <a class="btn btn-primary" href="{{ path('candidatures_show', {'offerId':offer.id }) }}" >Liste des candidats</a>
-                    {% else %}
-                        <p>En attente de validation</p>
-                    {% endif %}
+            
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title border-bottom pb-1 mb-3">{{ offer.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                        {% if offer.status == 'pending' %}
+                            <span class="text-danger">en attente</span>
+                        {% else %}
+                            <span class="text-success">validée</span>
+                        {% endif %}
+                        </h6>
+                        <p class="card-text">
+                            {{ offer.description }}
+                        </p>
+                        <address class="card-text">
+                            {{ offer.companyAddress }}
+                        </address>
+                        {% if offer.status == 'validated' %}
+                            <a href="{{ path('candidatures_show', { 'offerId': offer.id }) }}" class="btn btn-primary">Liste des candidats</a>
+                        {% else %}
+                            <a href="#" class="btn btn-primary disabled">Liste des candidats</a>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         {%  else %}
-            <div class="row">
-                aucune offre en cours
+            <div>
+                Aucune offre en cours.
             </div>
         {% endif %}
     </div>

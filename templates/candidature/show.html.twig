@@ -3,26 +3,23 @@
 {% block title %}Candidature{% endblock %}
 
 {% block body %}
-    <div class="container border">
-        <div class="row bg-primary px-3 justify-content-center text-white-50">
-            <h1 class="text-center">Vos candidats</h1>
+    <div>
+        <div class="bg-primary p-2 text-center text-white mb-2">
+            <h1>Vos candidats</h1>
         </div>
-        <div class="row m-3 justify-content-between">
-            {% if candidates %}
-                {% for candidate in candidates %}
-                    {{ candidate.candidate.firstname }}
-                    {{ candidate.candidate.lastname }}
-                    <a class="btn btn-primary" href="{{ asset('uploads/curriculumVitae/' ~ candidate.candidate.curriculumVitae) }}">Voir le CV du candidat (PDF)</a>
-                {% endfor %}
-            {% else %}
-            <p>Vous n'avez aucune candidature pour le moment.</p>
-            {% endif %}
-        </div>
-        <div class="'row ">
-        </div>
+        {% if candidates %}
+            {% for candidate in candidates %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title border-bottom pb-1 mb-3">{{ candidate.candidate.lastname }} {{ candidate.candidate.firstname }}</h5>
+                        <a class="btn btn-primary" href="{{ asset('uploads/curriculumVitae/' ~ candidate.candidate.curriculumVitae) }}">Voir le CV du candidat (PDF)</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {%  else %}
+            <div>
+                Vous n'avez aucune candidature pour le moment.
+            </div>
+        {% endif %}
     </div>
-    <div class="row justify-content-center">
-    <a class="btn btn-info px-5 m-3" href="{{ path('home') }}">Retour</a>
-    </div>
-
 {% endblock %}

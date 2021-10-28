@@ -3,12 +3,11 @@
 {% block title %}Votre candidature{% endblock %}
 
 {% block body %}
-    <div class="container px-5 d-flex flex-column justify-content-center">
-        <p class="text-info m-3 text-center">
-            Pour postuler à une offre, merci de renseigner votre nom de famille,
-            votre prénom et votre CV dans votre profil.</p>
-        <a class="btn m-2 btn-info size" href="{{ path('candidate_edit', { id: app.user.id}) }}">Aller dans mon profil</a>
-        <a class="btn m-2 btn-outline-info size" href="{{ path('home') }}">Retour</a>
-
+    <div class="px-5 text-center">
+        <p class="mb-5">
+            Pour postuler à une offre, merci de renseigner votre nom de famille, votre prénom et votre CV dans votre profil.
+        </p>
+        <a class="btn btn-primary" href="{{ path('candidate_edit', { id: app.user.id}) }}">Aller dans mon profil</a>
+        <a class="btn btn-outline-primary" href="{{ path('home') }}">Retour</a>
     </div>
 {% endblock %}

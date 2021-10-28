@@ -3,33 +3,33 @@
 {% block title %}Modifier mon profil{% endblock %}
 
 {% block body %}
-        <h1 class="text-center">Mon profil</h1>
-    <div class="container d-flex justify-content-center">
-    {{ form_start(form) }}
+    <h1 class="text-center mb-3">Mon profil</h1>
+    <div class="d-flex justify-content-center">
+        {{ form_start(form) }}
 
-    <div class="row">
-        <div class="m-1 form-group">
-            {{ form_label(form.firstname) }}
-            {{ form_row(form.firstname, {'label':false}) }}
+        <div class="row">
+            <div class="form-group">
+                {{ form_label(form.firstname) }}
+                {{ form_row(form.firstname, {'label':false}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.lastname) }}
+                {{ form_row(form.lastname, {'label':false}) }}
+            </div>
         </div>
-        <div class="m-1 form-group">
-            {{ form_label(form.lastname) }}
-            {{ form_row(form.lastname, {'label':false}) }}
+
+        <div class="row">
+            <div class="form-group">
+                {{ form_row(form.curriculum_vitae) }}
+                
+                {% if user.curriculumVitae %}
+                    <a class="btn btn-outline-primary mb-2" href="{{ asset('uploads/curriculumVitae/' ~ user.curriculumVitae) }}" target="_blank" rel="noopener">Voir mon CV téléchargé (PDF)</a>
+                {% endif %}
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="m-1 form-group">
-            {{ form_row(form.curriculum_vitae) }}
-            {% if user.curriculumVitae %}
-            <a href="{{ asset('uploads/curriculumVitae/' ~ user.curriculumVitae) }}">voir mon CV téléchargé (PDF)</a>
-            {% endif %}
-        </div>
-    </div>
+        <button class="btn btn-primary">{{ button_label|default('Mettre à jour mon profil') }}</button>
 
-    <button class="btn btn-primary btn-block">{{ button_label|default('Mettre à jour mon profil') }}</button>
-
-    {{ form_end(form) }}
-
+        {{ form_end(form) }}
     </div>
 {% endblock %}
